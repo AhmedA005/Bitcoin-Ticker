@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'coin_data.dart';
+import 'crypto_card.dart';
 
 class PriceScreen extends StatefulWidget {
   @override
@@ -54,13 +55,17 @@ class _PriceScreenState extends State<PriceScreen> {
     );
   }
 
-  String bitcoinValue = '?';
+  Map<String, String> cryptoValues = {};
+  bool isWaiting = false;
 
   void getData() async {
+    isWaiting = true;
     try {
-      double data = await CoinData().getCoinData(selectedCurrency);
+      dynamic data = await CoinData().getCoinData(selectedCurrency);
+      isWaiting = false;
+      print(data);
       setState(() {
-        bitcoinValue = data.toStringAsFixed(2);
+        cryptoValues = data;
       });
     } catch (e) {
       print(e);
@@ -88,15 +93,15 @@ class _PriceScreenState extends State<PriceScreen> {
             children: [
               CryptoCard(
                   cryptoCurrency: 'BTC',
-                  bitcoinValue: bitcoinValue,
+                  cryptoValue: isWaiting ? '?' : cryptoValues['BTC'],
                   selectedCurrency: selectedCurrency),
               CryptoCard(
                   cryptoCurrency: 'ETH',
-                  bitcoinValue: bitcoinValue,
+                  cryptoValue: isWaiting ? '?' : cryptoValues['ETH'],
                   selectedCurrency: selectedCurrency),
               CryptoCard(
                   cryptoCurrency: 'LTC',
-                  bitcoinValue: bitcoinValue,
+                  cryptoValue: isWaiting ? '?' : cryptoValues['LTC'],
                   selectedCurrency: selectedCurrency),
             ],
           ),

@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 class CryptoCard extends StatelessWidget {
   const CryptoCard({
     super.key,
-    required this.bitcoinValue,
+    required this.cryptoValue,
     required this.selectedCurrency,
     required this.cryptoCurrency,
   });
 
-  final String bitcoinValue;
+  final String? cryptoValue;
   final String selectedCurrency;
   final String cryptoCurrency;
 
@@ -25,7 +25,7 @@ class CryptoCard extends StatelessWidget {
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
           child: Text(
-            '1 BTC = $bitcoinValue $selectedCurrency',
+            '1 $cryptoCurrency = $cryptoValue $selectedCurrency',
             textAlign: TextAlign.center,
             style: const TextStyle(
               fontSize: 20.0,
